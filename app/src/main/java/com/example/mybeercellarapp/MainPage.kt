@@ -16,26 +16,35 @@ class MainPage : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         binding = ActivityMainPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Check if user is logged in
-        if (FirebaseAuth.getInstance().currentUser == null) {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser == null) {
             // User is not logged in, redirect to SignInActivity
             startActivity(Intent(this, SignInActivity::class.java))
             finish()
-            return // Prevent further execution
+            return
         }
 
-        // Set up the log out button
+        // Set up the View Beers button
+        binding.viewBeersButton.setOnClickListener {
+            val intent = Intent(this, BeerListScreen::class.java).apply {
+                putExtra("user_id", currentUser.uid)  // Pass user ID to BeerListScreen
+            }
+            startActivity(intent)
+        }
+
+        // Set up the Log Out button
         binding.logoutButton.setOnClickListener {
             signOut()
         }
     }
 
-    fun signOut() {
-        FirebaseAuth.getInstance().signOut() // Sign out from Firebase
-        startActivity(Intent(this, SignInActivity::class.java)) // Go back to sign-in screen
+    private fun signOut() {
+        FirebaseAuth.getInstance().signOut()
+        startActivity(Intent(this, SignInActivity::class.java))
         finish()
     }
 }
