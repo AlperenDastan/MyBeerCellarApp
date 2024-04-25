@@ -14,13 +14,21 @@ import com.example.mybeercellarapp.ui.theme.MyBeerCellarAppTheme
 import android.content.Intent
 import android.widget.Button
 import com.example.mybeercellarapp.databinding.ActivityMainPageBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : ComponentActivity() {
-    private lateinit var binding: ActivityMainPageBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainPageBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+
+        // Check if the user is logged in
+        if (FirebaseAuth.getInstance().currentUser != null) {
+            // User is logged in, navigate to MainPage
+            startActivity(Intent(this, MainPage::class.java))
+        } else {
+            // User is not logged in, navigate to SignInActivity
+            startActivity(Intent(this, SignInActivity::class.java))
+        }
+        finish() // Finish MainActivity so it's not in the back stack
     }
 }
 
