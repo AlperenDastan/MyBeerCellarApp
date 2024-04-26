@@ -17,6 +17,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="32dp" />
 
+    <!-- New button for viewing beers of the logged-in user -->
+    <Button
+        android:id="@+id/viewUserBeersButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search Beers"
+        app:layout_constraintTop_toBottomOf="@+id/viewBeersButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- New button for adding a new beer -->
+    <Button
+        android:id="@+id/addBeerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Beer"
+        app:layout_constraintTop_toBottomOf="@id/viewUserBeersButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"

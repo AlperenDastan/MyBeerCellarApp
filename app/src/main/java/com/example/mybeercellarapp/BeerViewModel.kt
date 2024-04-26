@@ -19,12 +19,14 @@ class BeerViewModel(private val repository: BeerRepository) : ViewModel() {
         }
     }
 
-    fun getUserBeers(userId: String, orderBy: String) {
+
+    fun getUserBeers(userId: String, orderBy: String = "") {
         viewModelScope.launch {
             try {
-                beers.value = repository.getUserBeers(userId, orderBy)
+                val results = repository.getUserBeers(userId, orderBy)
+                beers.postValue(results)
             } catch (e: Exception) {
-                error.value = e.message
+                error.postValue(e.message)
             }
         }
     }
@@ -41,5 +43,26 @@ class BeerViewModel(private val repository: BeerRepository) : ViewModel() {
         }
     }
 
-    // Define methods for PUT and DELETE operations here when you have them in your API.
+    fun updateBeer(beer: Beer) {
+        viewModelScope.launch {
+            try {
+                val updatedBeer = repository.updateBeer(beer)
+                // Handle the updated beer, e.g., update the list in LiveData
+            } catch (e: Exception) {
+                error.value = e.message
+            }
+        }
+    }
+
+    fun deleteBeer(id: Int) {
+        viewModelScope.launch {
+            try {
+                repository.deleteBeer(id)
+                // Handle the deletion, e.g., remove the beer from the list in LiveData
+            } catch (e: Exception) {
+                error.value = e.message
+                // Define methods for PUT and DELETE operations here when you have them in your API.
+            }
+        }
+    }
 }

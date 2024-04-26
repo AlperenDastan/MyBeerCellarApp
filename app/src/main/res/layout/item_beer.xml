@@ -56,5 +56,6 @@
         android:textSize="16sp" />
 
 
+
     <!-- Add other views for properties like style, volume, etc. -->
 </LinearLayout>

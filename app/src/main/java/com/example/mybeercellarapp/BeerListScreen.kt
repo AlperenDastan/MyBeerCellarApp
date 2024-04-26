@@ -20,7 +20,8 @@ class BeerListScreen : AppCompatActivity() {
         setContentView(binding.root)
 
         val beerApiService = RetrofitInstance.api // Obtain the API service from Retrofit instance
-        val repository = BeerRepository(beerApiService) // Initialize repository with the API service
+        val repository =
+            BeerRepository(beerApiService) // Initialize repository with the API service
         val viewModelFactory = BeerViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(BeerViewModel::class.java)
 
@@ -37,5 +38,10 @@ class BeerListScreen : AppCompatActivity() {
         })
 
         viewModel.getAllBeers()
+
+
+        binding.buttonBackToMain.setOnClickListener {
+            finish()  // Finish this activity to return to the previous one
+        }
     }
 }
